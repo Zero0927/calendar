@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body  ng-controller="TestController" align="center">
+
+  <div class="main">
+    <div class="fre">
+      <label for="freq">Frequency : </label>
+      <select class="form-control" ng-model="freq" id="freq">
+       <option value="Daily">Daily</option>
+       <option value="Weekly">Weekly</option>
+       <option value="Monthly">Monthly</option>
+       <option value="Yearly">Yearly</option>
+     </select>
+   </div>
+   <div class="form-group" ng-if="freq=='Daily'">
+     Every <input class = "day" type="number"> day(s) <br>
+   </div>
+   <div class="form-group" ng-if="freq=='Weekly'">
+     Every <input class = "week" type="number"> week(s) on: <br>
+     <table class="centeredItem dayTable">
+      <tr>
+        <td ng-repeat="week in ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" ng-class="{ active : selectedWeeks.indexOf(week) != -1 }" ng-click="selectWeek(week)">
+          {{week}}
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="form-group" ng-if="freq=='Monthly'">
+ Every <input class = "month" type="number"> month(s)<br>
+ <div>
+   <label for="monthchoice"><input type="radio" name="monthchoice" value="Each" ng-model="mySwitch"> Each</label> <br>
+   <div>
+     <table class="centeredItem dayTable" ng-class="{disabled : mySwitch!='Each'}">
+       <tr>
+         <td ng-class="{ active : selectedDays.indexOf(n) != -1 }" ng-click="selectDay(n,mySwitch)" ng-repeat="n in range(1,7)">{{n}}</td>
+       </tr>
+       <tr>
+         <td ng-class="{ active : selectedDays.indexOf(n) != -1 }" 
+         ng-repeat="n in range(8,14)" ng-click="selectDay(n,mySwitch)">{{n}}</td>
+       </tr>
+       <tr>
+         <td ng-class="{ active : selectedDays.indexOf(n) != -1 }" ng-repeat="n in range(15,21)" 
+         ng-click="selectDay(n,mySwitch)">{{n}}</td>
+       </tr>
+       <tr>
+         <td ng-class="{ active : selectedDays.indexOf(n) != -1 }" ng-repeat="n in range(22,28)" 
+         ng-click="selectDay(n,mySwitch)">{{n}}</td>
+       </tr>
+       <tr>
+         <td ng-class="{ active : selectedDays.indexOf(n) != -1 }" 
+         ng-repeat="n in range(29,31)" ng-click="selectDay(n,mySwitch)">{{n}}</td>
+       </tr>
+     </table>
+   </div>
+ </div>
+ <input type="radio" name="monthchoice" value="Onthe" ng-model="mySwitch"> On the <br>
+
+ <div ng-controller="DropdownCtrl">
+  <div class="btn-group" uib-dropdown dp-a > 
+    <button id="button1" type="button" ng-disabled="mySwitch == 'Each'" class="btn btn-default" uib-dropdown-toggle >
+      {{choices[selectedItem]}} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="button1">
+      <li role="menuitem" ng-repeat="i in ['first','second','third','fourth','fifth']">
+        <a href ng-click=callSelect($index)>{{i}}</a>
+      </li>
+      <li class="divider"></li>
+      <li role="menuitem"><a href="#" ng-click=callSelect(5)>last</a></li>
+    </ul>
+
+  </div>
+
+  <div class="btn-group" uib-dropdown dp-b > 
+    <button id="button2" type="button" ng-disabled="mySwitch == 'Each'" class="btn btn-default" uib-dropdown-toggle >
+      {{week[index]}} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="button2">
+      <li role="menuitem" ng-repeat="i in ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']">
+        <a href ng-click=selectIndex($index)>{{i}}</a>
+      </li>
+      <li class="divider"></li>
+      <li role="menuitem"><a href="#" ng-click=selectIndex(7)>day</a></li>
+      <li role="menuitem"><a href="#" ng-click=selectIndex(8)>weekday</a></li>
+      <li role="menuitem"><a href="#" ng-click=selectIndex(9)>weekend day</a></li>
+    </ul>
+  </div>
+
+</div>      
+</div>
+</div>
+<div class="form-group" ng-if="freq=='Yearly'">
+ Every <input class = "year" type="number"> year(s) in: <br>
+ <table class="centeredItem dayTable">
+  <tr>
+    <td ng-repeat ="year in ['Jan','Feb','Mar','Apr']" ng-click="selectYear(year)" ng-class="{ active : selectedYears.indexOf(year) != -1 }">
+      {{year}}
+    </td>
+  </tr>
+  <tr>
+    <td ng-repeat ="year in ['May','Jun','Jul','Aug']" ng-click="selectYear(year)" ng-class="{ active : selectedYears.indexOf(year) != -1 }">
+      {{year}}
+    </td>
+  </tr>
+  <tr>
+    <td ng-repeat ="year in ['Sept', 'Oct', 'Nov', 'Dec']" ng-click="selectYear(year)" ng-class="{ active : selectedYears.indexOf(year) != -1 }">
+      {{year}}
+    </td>
+  </tr>
+</table>
+<div ng-init="switch=false">
+ <input type="checkbox" ng-model="switch" value="On"> On the: <br>
+ <select class="form-control" ng-disabled="switch != true">
+  <option value="first">first</option>
+  <option value="second">second</option>
+  <option value="third">third</option>
+  <option value="fourth">fourth</option>
+  <option value="fifth">fifth</option>
+  <option value="last">last</option>
+</select>
+<select ng-disabled="switch != true">
+  <option value="Sunday">Sunday</option>
+  <option value="Monday">Monday</option>
+  <option value="Tuesday">Tuesday</option>
+  <option value="Wednesday">Wednesday</option>
+  <option value="Thursday">Thursday</option>
+  <option value="Friday">Friday</option>
+  <option value="Saturday">Saturday</option>
+  <option value="day">day</option>
+  <option value="weekday">weekday</option>
+  <option value="weekend day">weekend day</option>
+</select>
+</div>
+</div>
+</form>
+</div>
+<button class="btn btn-default" type="button"> Cancel </button>
+<button class="btn btn-default" type="button"> OK </button>
+</div>
+</div>
+<script type="text/javascript" src="./bower_components/angular/angular.js"></script>
+<script type="text/javascript" src="./bower_components/angular-pickadate/dist/angular-pickadate.js"></script>
+<script type="text/javascript" src="./bower_components/angular-animate/angular-animate.js"></script>
+<script type="text/javascript" src="./bower_components/angular-touch/angular-touch.js"></script>
+<script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>

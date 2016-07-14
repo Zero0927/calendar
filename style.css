@@ -1,0 +1,44 @@
+.for {
+	display:inline;
+	position:absolute;
+}
+.form-control {
+	width:15%;
+	display: inline;
+}
+.fre{
+	margin-bottom: 10px; 
+}
+.day,.year,.month,.week{
+	width: 40px;
+    height: 20px;
+	margin:10px;
+}
+
+.centeredItem{
+    float: none;
+    margin: 0 auto;
+}
+
+.dayTable{
+	border: 1px solid;
+}
+
+.dayTable tr td{
+	width: 40px;
+	border: 1px solid #dcdcdc;
+	cursor: pointer;
+}
+
+.dayTable tr td.active{
+	background-color: #e6e6e6;
+}
+
+table.disabled{
+	background-color: #c3cad1;
+	cursor: default;
+}
+
+table.disabled tr td{
+	cursor: default;
+}
