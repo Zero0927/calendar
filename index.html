@@ -19,10 +19,10 @@
      </select>
    </div>
    <div class="form-group" ng-if="freq=='Daily'">
-     Every <input class = "day" type="number"> day(s) <br>
+     Every <input class = "day" type="number" ng-model="input.day" ng-init="input.day=''"> day(s) <br>
    </div>
    <div class="form-group" ng-if="freq=='Weekly'">
-     Every <input class = "week" type="number"> week(s) on: <br>
+     Every <input class = "week" type="number" ng-model="input.week" ng-init="input.week=''"> week(s) on: <br>
      <table class="centeredItem dayTable">
       <tr>
         <td ng-repeat="week in ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" ng-class="{ active : selectedWeeks.indexOf(week) != -1 }" ng-click="selectWeek(week)">
@@ -33,9 +33,9 @@
   </div>
 </div>
 <div class="form-group" ng-if="freq=='Monthly'">
- Every <input class = "month" type="number"> month(s)<br>
+ Every <input class = "month" type="number" ng-model="input.month" ng-init="input.month=''"> month(s)<br>
  <div>
-   <label for="monthchoice"><input type="radio" name="monthchoice" value="Each" ng-model="mySwitch"> Each</label> <br>
+ <label for="monthchoice"><input type="radio" name="monthchoice" value="Each" ng-model="mySwitch"> Each</label> <br>
    <div>
      <table class="centeredItem dayTable" ng-class="{disabled : mySwitch!='Each'}">
        <tr>
@@ -60,8 +60,7 @@
      </table>
    </div>
  </div>
- <input type="radio" name="monthchoice" value="Onthe" ng-model="mySwitch"> On the <br>
-
+ <input  type="radio" name="monthchoice" value="Onthe" ng-model="mySwitch"> On the <br>
  <div ng-controller="DropdownCtrl">
   <div class="btn-group" uib-dropdown dp-a > 
     <button id="button1" type="button" ng-disabled="mySwitch == 'Each'" class="btn btn-default" uib-dropdown-toggle >
@@ -74,9 +73,7 @@
       <li class="divider"></li>
       <li role="menuitem"><a href="#" ng-click=callSelect(5)>last</a></li>
     </ul>
-
   </div>
-
   <div class="btn-group" uib-dropdown dp-b > 
     <button id="button2" type="button" ng-disabled="mySwitch == 'Each'" class="btn btn-default" uib-dropdown-toggle >
       {{week[index]}} <span class="caret"></span>
@@ -91,12 +88,11 @@
       <li role="menuitem"><a href="#" ng-click=selectIndex(9)>weekend day</a></li>
     </ul>
   </div>
-
 </div>      
 </div>
 </div>
 <div class="form-group" ng-if="freq=='Yearly'">
- Every <input class = "year" type="number"> year(s) in: <br>
+ Every <input class = "year" type="number" ng-model="input.year" ng-init="input.year=''"> year(s) in: <br>
  <table class="centeredItem dayTable">
   <tr>
     <td ng-repeat ="year in ['Jan','Feb','Mar','Apr']" ng-click="selectYear(year)" ng-class="{ active : selectedYears.indexOf(year) != -1 }">
@@ -152,8 +148,30 @@
   <button class="btn btn-default" type="button"> Cancel </button>
   <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Ok</button>
   <hr>
-  <div uib-collapse="!isCollapsed">
-  <div class="well well-lg"> You didn't pick anything</div>
+  <div  uib-collapse="!isCollapsed">
+    <div class="msg"> 
+      <div ng-if="freq=='Daily'">
+        Every {{input.day}} day(s)
+      </div>
+      <div ng-if="freq=='Weekly'">
+        Every {{input.week}} weeks on
+        <span ng-repeat="n in selectedWeeks">
+          {{n}}
+        </span> 
+      </div>
+      <div ng-if="freq=='Monthly'">
+        Every {{input.month}} month(s) 
+        <span ng-show="monthFlag">
+          each
+          <span ng-repeat="n in selectedDays">
+            {{n}}
+          </span>
+        </span>
+      </div>
+      <div ng-if="freq=='Yearly'">
+        Every {{input.year}} year(s)
+      </div>
+    </div>
   </div>
 </div>
 </div>
@@ -164,5 +182,7 @@
 <script type="text/javascript" src="./bower_components/angular-touch/angular-touch.js"></script>
 <script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="./app.js"></script>
+
+<p>{{flag}}</p>
 </body>
 </html>

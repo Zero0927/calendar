@@ -21,8 +21,17 @@ Todo:
   Daily Calendar UI [Done]
 3. Make all these work when user changes the Frequency [Done]
 4. Try to implement RRULE and translate user input into Text.
-5. use bower and install http://angular-ui.github.io/bootstrap
-6. Change few drop downs to use the new angular-ui library
+5. use bower and install http://angular-ui.github.io/bootstrap [Done]
+6. Change few drop downs to use the new angular-ui library [Done]
+12. Organizing Code better.
+9. Improve the style of cashitem scrollbars
+10. Repeat Entries Form improvements
+11. Repeat Entry item view page
+
+7. Payments Integration. Accept Stripe Input
+8. Build a page with update Stripe Card.
+      Stripe Card warnings
+
 
 
 AngularJS Concepts

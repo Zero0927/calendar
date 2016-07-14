@@ -2,10 +2,12 @@ var app = angular.module('testApp', ['pickadate','ngAnimate', 'ui.bootstrap']);
 
 
 function TestController($scope, dateFilter) {
-
+	$scope.monthFlag = true;
 	$scope.freq="Daily";
 	$scope.mySwitch = "Each";
+    $scope.input = {};
 
+   
 	$scope.range = function(min, max, step) {
 		step = step || 1;
 		var input = [];
@@ -18,7 +20,6 @@ function TestController($scope, dateFilter) {
 	$scope.selectedDays = [];
 
 	$scope.selectDay = function(val,swit){
-		console.log(swit);
 		if(swit != 'Each'){
 			return;
 		}
@@ -32,11 +33,6 @@ function TestController($scope, dateFilter) {
 			$scope.selectedDays.push(val);
 		}
 	};
-
-	$scope.emptyDay = function(){
-		$scope.selectedDays.splice(0,$scope.selectedDays.length);
-	};
-
 
 	$scope.selectWeek = function(val){
 		var itemIndex = $scope.selectedWeeks.indexOf(val);
@@ -98,6 +94,9 @@ app.controller('DropdownCtrl', ['$scope',function ($scope) {
   };
 
   $scope.appendToEl = angular.element(document.querySelector('#dropdown-long-content'));
+
+  $scope.isCollapsed = false;
+
 }]);
 
 
