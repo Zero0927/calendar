@@ -115,27 +115,35 @@
   </tr>
 </table>
 <div ng-init="switch=false">
- <input type="checkbox" ng-model="switch" value="On"> On the: <br>
- <select class="form-control" ng-disabled="switch != true">
-  <option value="first">first</option>
-  <option value="second">second</option>
-  <option value="third">third</option>
-  <option value="fourth">fourth</option>
-  <option value="fifth">fifth</option>
-  <option value="last">last</option>
-</select>
-<select ng-disabled="switch != true">
-  <option value="Sunday">Sunday</option>
-  <option value="Monday">Monday</option>
-  <option value="Tuesday">Tuesday</option>
-  <option value="Wednesday">Wednesday</option>
-  <option value="Thursday">Thursday</option>
-  <option value="Friday">Friday</option>
-  <option value="Saturday">Saturday</option>
-  <option value="day">day</option>
-  <option value="weekday">weekday</option>
-  <option value="weekend day">weekend day</option>
-</select>
+  <input type="checkbox" ng-model="switch" value="On"> On the: <br>
+  <div ng-controller="DropdownCtrl">
+    <div class="btn-group" uib-dropdown dp-a > 
+      <button id="button1" type="button"  ng-disabled="switch !=true" class="btn btn-default" uib-dropdown-toggle >
+        {{choices[selectedItem]}} <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="button1">
+        <li role="menuitem" ng-repeat="i in ['first','second','third','fourth','fifth']">
+          <a href ng-click=callSelect($index)>{{i}}</a>
+        </li>
+        <li class="divider"></li>
+        <li role="menuitem"><a href="#" ng-click=callSelect(5)>last</a></li>
+      </ul>
+    </div>
+    <div class="btn-group" uib-dropdown dp-b > 
+      <button id="button2" type="button"  ng-disabled="switch !=true" class="btn btn-default" uib-dropdown-toggle >
+        {{week[index]}} <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="button2">
+        <li role="menuitem" ng-repeat="i in ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']">
+          <a href ng-click=selectIndex($index)>{{i}}</a>
+        </li>
+        <li class="divider"></li>
+        <li role="menuitem"><a href="#" ng-click=selectIndex(7)>day</a></li>
+        <li role="menuitem"><a href="#" ng-click=selectIndex(8)>weekday</a></li>
+        <li role="menuitem"><a href="#" ng-click=selectIndex(9)>weekend day</a></li>
+      </ul>
+    </div>
+  </div>   
 </div>
 </div>
 </form>
