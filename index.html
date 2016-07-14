@@ -148,8 +148,14 @@
 </div>
 </form>
 </div>
-<button class="btn btn-default" type="button"> Cancel </button>
-<button class="btn btn-default" type="button"> OK </button>
+<div ng-controller="DropdownCtrl">
+  <button class="btn btn-default" type="button"> Cancel </button>
+  <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Ok</button>
+  <hr>
+  <div uib-collapse="!isCollapsed">
+  <div class="well well-lg"> You didn't pick anything</div>
+  </div>
+</div>
 </div>
 </div>
 <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
