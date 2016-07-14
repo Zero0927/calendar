@@ -6,8 +6,29 @@ function TestController($scope, dateFilter) {
 	$scope.freq="Daily";
 	$scope.mySwitch = "Each";
     $scope.input = {};
+    $scope.selectedDays = [];
+    $scope.selectedWeeks=[];
+    $scope.selectedYears=[];
+    $scope.leftIndex = 0;
+    $scope.rightIndex = 0;
 
-   
+
+    $scope.setLeft = function(n) {
+    	$scope.leftIndex = n;
+    }
+
+    $scope.setRight = function(n) {
+    	$scope.rightIndex = n;
+    }
+
+    $scope.setFlag = function(n) {
+    	if (n == 1) {
+    		$scope.monthFlag = true;
+    	} else {
+    		$scope.monthFlag = false;
+    	}
+    };
+
 	$scope.range = function(min, max, step) {
 		step = step || 1;
 		var input = [];
@@ -16,8 +37,6 @@ function TestController($scope, dateFilter) {
 		}
 		return input;
 	};
-
-	$scope.selectedDays = [];
 
 	$scope.selectDay = function(val,swit){
 		if(swit != 'Each'){
@@ -46,10 +65,6 @@ function TestController($scope, dateFilter) {
 		}
 	};
 
-	$scope.selectedWeeks=[];
-
-	$scope.selectedYears=[];
-
 	$scope.selectYear = function(val){
 		var itemIndex = $scope.selectedYears.indexOf(val);
 		var len = $scope.selectedYears.length;
@@ -62,42 +77,33 @@ function TestController($scope, dateFilter) {
 		}
 	};
 
-}
-
-app.controller('TestController', ['$scope', 'dateFilter', TestController]);
-
-app.controller('DropdownCtrl', ['$scope',function ($scope) {
-
 
   $scope.selectedItem = 0;
   $scope.choices = ["first","second","third","fourth","fifth","last"];
-  $scope.status = {
-    isopen: false
-  };
   $scope.week =["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","day","weekday","weekend day"];
   $scope.index = 0;
+  $scope.isCollapsed = false;
+  $scope.yearSwitch = false;
+
+  $scope.changeSwitch = function(){
+  	$scope.yearSwitch = !$scope.yearSwitch;
+  }
+
   $scope.selectIndex = function(n) {
   	$scope.index = n;
   }
   $scope.callSelect = function(num){
     $scope.selectedItem = num;
   }
+}
 
-  $scope.toggled = function(open) {
-    $log.log('Dropdown is now: ', open);
-  };
+app.controller('TestController', ['$scope', 'dateFilter', TestController]);
 
-  $scope.toggleDropdown = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
-    $scope.status.isopen = !$scope.status.isopen;
-  };
+//app.controller('DropdownCtrl', ['$scope',function ($scope) {
 
-  $scope.appendToEl = angular.element(document.querySelector('#dropdown-long-content'));
 
-  $scope.isCollapsed = false;
 
-}]);
+//}]);
 
 
 
