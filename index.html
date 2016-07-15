@@ -19,10 +19,10 @@
      </select>
    </div>
    <div class="form-group" ng-if="freq=='Daily'">
-     Every <input class = "day" type="number" ng-model="input.day" ng-init="input.day=''"> day(s) <br>
+     Every <input min="1" class = "day" type="number" ng-model="input.day" ng-init="input.day=''"> day(s) <br>
    </div>
    <div class="form-group" ng-if="freq=='Weekly'">
-     Every <input class = "week" type="number" ng-model="input.week" ng-init="input.week=''"> week(s) on: <br>
+     Every <input min="1" class = "week" type="number" ng-model="input.week" ng-init="input.week=''"> week(s) on: <br>
      <table class="centeredItem dayTable">
       <tr>
         <td ng-repeat="week in ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" ng-class="{ active : selectedWeeks.indexOf(week) != -1 }" ng-click="selectWeek(week)">
@@ -33,7 +33,7 @@
   </div>
 </div>
 <div class="form-group" ng-if="freq=='Monthly'">
- Every <input class = "month" type="number" ng-model="input.month" ng-init="input.month=''"> month(s)<br>
+ Every <input  min="1" class = "month" type="number" ng-model="input.month" ng-init="input.month=''"> month(s)<br>
  <div>
    <label for="monthchoice"><input ng-click ="setFlag(1)" type="radio" name="monthchoice" value="Each" ng-model="mySwitch"> Each</label> <br>
    <div>
@@ -92,7 +92,7 @@
 </div>
 </div>
 <div class="form-group" ng-if="freq=='Yearly'">
- Every <input class = "year" type="number" ng-model="input.year" ng-init="input.year=''"> year(s) in: <br>
+ Every <input min="1" class = "year" type="number" ng-model="input.year" ng-init="input.year=''"> year(s) in: <br>
  <table class="centeredItem dayTable">
   <tr>
     <td ng-repeat ="year in ['Jan','Feb','Mar','Apr']" ng-click="selectYear(year)" ng-class="{ active : selectedYears.indexOf(year) != -1 }">
@@ -113,7 +113,7 @@
 <div ng-init="switch=false">
   <div >
     <input type="checkbox" ng-model="switch" value="On" ng-click="changeSwitch()"> On the: <br>
-    
+
     <div class="btn-group" uib-dropdown dp-a > 
       <button id="button1" type="button"  ng-disabled="switch !=true" class="btn btn-default" uib-dropdown-toggle >
         {{choices[selectedItem]}} <span class="caret"></span>
@@ -191,6 +191,7 @@
 <script type="text/javascript" src="./bower_components/angular-animate/angular-animate.js"></script>
 <script type="text/javascript" src="./bower_components/angular-touch/angular-touch.js"></script>
 <script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script type="text/javascript" src="./bower_components/rrule/rrule.js"></script>
 <script src="./app.js"></script>
 </body>
 </html>
