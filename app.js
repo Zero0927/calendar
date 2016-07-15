@@ -50,6 +50,7 @@ function TestController($scope, dateFilter) {
 			}
 		}else{
 			$scope.selectedDays.push(val);
+			$scope.selectedDays.sort();
 		}
 	};
 
@@ -62,6 +63,7 @@ function TestController($scope, dateFilter) {
 			}
 		}else{
 			$scope.selectedWeeks.push(val);
+			$scope.selectedWeeks.sort();
 		}
 	};
 
@@ -74,6 +76,7 @@ function TestController($scope, dateFilter) {
 			}
 		}else{
 			$scope.selectedYears.push(val);
+			$scope.selectedYears.sort();
 		}
 	};
 
@@ -99,11 +102,6 @@ function TestController($scope, dateFilter) {
 
 app.controller('TestController', ['$scope', 'dateFilter', TestController]);
 
-//app.controller('DropdownCtrl', ['$scope',function ($scope) {
-
-
-
-//}]);
 
 
 

@@ -111,9 +111,9 @@
   </tr>
 </table>
 <div ng-init="switch=false">
-<div >
-  <input type="checkbox" ng-model="switch" value="On" ng-click="changeSwitch()"> On the: <br>
-  
+  <div >
+    <input type="checkbox" ng-model="switch" value="On" ng-click="changeSwitch()"> On the: <br>
+    
     <div class="btn-group" uib-dropdown dp-a > 
       <button id="button1" type="button"  ng-disabled="switch !=true" class="btn btn-default" uib-dropdown-toggle >
         {{choices[selectedItem]}} <span class="caret"></span>
@@ -136,8 +136,8 @@
         </li>
         <li class="divider"></li>
         <li role="menuitem"><a href="#" ng-click=selectIndex(7);setRight(7)>day</a></li>
-      <li role="menuitem"><a href="#" ng-click=selectIndex(8);setRight(8)>weekday</a></li>
-      <li role="menuitem"><a href="#" ng-click=selectIndex(9);setRight(9)>weekend day</a></li>
+        <li role="menuitem"><a href="#" ng-click=selectIndex(8);setRight(8)>weekday</a></li>
+        <li role="menuitem"><a href="#" ng-click=selectIndex(9);setRight(9)>weekend day</a></li>
       </ul>
     </div>
   </div>   
@@ -175,10 +175,10 @@
      <div ng-if="freq=='Yearly'">
       Every {{input.year}} year(s)
       <span ng-repeat="n in selectedYears">
-      {{n}}
+        {{n}}
       </span>
       <span ng-show="yearSwitch == true">
-      on the {{choices[leftIndex]}} {{week[rightIndex]}}
+        on the {{choices[leftIndex]}} {{week[rightIndex]}}
       </span>
     </div>
   </div>
