@@ -11,7 +11,17 @@ function TestController($scope, dateFilter) {
     $scope.selectedYears=[];
     $scope.leftIndex = 0;
     $scope.rightIndex = 0;
-
+    $scope.repeatText = "";
+ 
+    $scope.optionsChange = function(){
+      if($scope.input.day){
+        var rR =  new RRule({
+        	freq: RRule.DAILY,
+        	interval : $scope.input.day
+        });
+      }
+      $scope.repeatText = rR.toText();
+    }
 
     $scope.setLeft = function(n) {
     	$scope.leftIndex = n;
@@ -63,7 +73,6 @@ function TestController($scope, dateFilter) {
 			}
 		}else{
 			$scope.selectedWeeks.push(val);
-			$scope.selectedWeeks.sort();
 		}
 	};
 

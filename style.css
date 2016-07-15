@@ -42,4 +42,7 @@ table.disabled{
 table.disabled tr td{
 	cursor: default;
 }
+.bd{
+	margin-top: 100px;
+}
 
