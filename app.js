@@ -46,6 +46,7 @@ function TestController($scope, dateFilter) {
 	}
 
 	$scope.weekTransfer = function(){
+		$scope.weeks = [];
 		for(i = 0; i < $scope.selectedWeeks.length; i++) {
 			switch($scope.selectedWeeks[i]){
 				case 'Mon':
@@ -126,6 +127,8 @@ function TestController($scope, dateFilter) {
 		}else{
 			$scope.selectedWeeks.push(val);
 		}
+		$scope.weekTransfer();
+		$scope.optionsChange();
 	};
 
 	$scope.selectYear = function(val){
