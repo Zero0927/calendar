@@ -5,39 +5,92 @@ function TestController($scope, dateFilter) {
 	$scope.monthFlag = true;
 	$scope.freq="Daily";
 	$scope.mySwitch = "Each";
-    $scope.input = {};
-    $scope.selectedDays = [];
-    $scope.selectedWeeks=[];
-    $scope.selectedYears=[];
-    $scope.leftIndex = 0;
-    $scope.rightIndex = 0;
-    $scope.repeatText = "";
- 
-    $scope.optionsChange = function(){
-      if($scope.input.day){
-        var rR =  new RRule({
-        	freq: RRule.DAILY,
-        	interval : $scope.input.day
-        });
-      }
-      $scope.repeatText = rR.toText();
-    }
+	$scope.input = {};
+	$scope.selectedDays = [];
+	$scope.selectedWeeks=[];
+	$scope.selectedYears=[];
+	$scope.leftIndex = 0;
+	$scope.rightIndex = 0;
+	$scope.text = "";
+	$scope.weeks =[];
+	
+	$scope.optionsChange = function(){
+		switch($scope.freq){
+			case 'Daily':
+			var rR =  new RRule({
+				freq: RRule.DAILY,
+				interval : $scope.input.day
+			});
+			break;
+			case 'Weekly':
+			var rR =  new RRule({
+				freq: RRule.WEEKLY,
+				interval : $scope.input.week,
+				byweekday: $scope.weeks
+			});
+			break;
+			case 'Monthly':
+			var rR =  new RRule({
+				freq: RRule.MONTHLY,
+				interval : $scope.input.month
+			});
+			break;
+			case 'Yearly':
+			var rR =  new RRule({
+				freq: RRule.YEARLY,
+				interval : $scope.input.year
+			});
+			break; 
+		} 
+		$scope.text = rR.toText();
+	}
 
-    $scope.setLeft = function(n) {
-    	$scope.leftIndex = n;
-    }
+	$scope.weekTransfer = function(){
+		$scope.weeks = [];
+		for(i = 0; i < $scope.selectedWeeks.length; i++) {
+			switch($scope.selectedWeeks[i]){
+				case 'Mon':
+				$scope.weeks.push(RRule.MO);
+				break;
+				case 'Tue':
+				$scope.weeks.push(RRule.TU);
+				break;
+				case 'Wed':
+				$scope.weeks.push(RRule.WE);
+				break;
+				case 'Thu':
+				$scope.weeks.push(RRule.TH);
+				break;
+				case 'Fri':
+				$scope.weeks.push(RRule.FR);
+				break;
+				case 'Sat':
+				$scope.weeks.push(RRule.SA);
+				break;
+				case 'Sun':
+				$scope.weeks.push(RRule.SU);
+				break;
+			}
+		}
+	}
 
-    $scope.setRight = function(n) {
-    	$scope.rightIndex = n;
-    }
+	
 
-    $scope.setFlag = function(n) {
-    	if (n == 1) {
-    		$scope.monthFlag = true;
-    	} else {
-    		$scope.monthFlag = false;
-    	}
-    };
+	$scope.setLeft = function(n) {
+		$scope.leftIndex = n;
+	}
+
+	$scope.setRight = function(n) {
+		$scope.rightIndex = n;
+	}
+
+	$scope.setFlag = function(n) {
+		if (n == 1) {
+			$scope.monthFlag = true;
+		} else {
+			$scope.monthFlag = false;
+		}
+	};
 
 	$scope.range = function(min, max, step) {
 		step = step || 1;
@@ -74,6 +127,8 @@ function TestController($scope, dateFilter) {
 		}else{
 			$scope.selectedWeeks.push(val);
 		}
+		$scope.weekTransfer();
+		$scope.optionsChange();
 	};
 
 	$scope.selectYear = function(val){
@@ -90,23 +145,23 @@ function TestController($scope, dateFilter) {
 	};
 
 
-  $scope.selectedItem = 0;
-  $scope.choices = ["first","second","third","fourth","fifth","last"];
-  $scope.week =["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","day","weekday","weekend day"];
-  $scope.index = 0;
-  $scope.isCollapsed = false;
-  $scope.yearSwitch = false;
+	$scope.selectedItem = 0;
+	$scope.choices = ["first","second","third","fourth","fifth","last"];
+	$scope.week =["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","day","weekday","weekend day"];
+	$scope.index = 0;
+	$scope.isCollapsed = false;
+	$scope.yearSwitch = false;
 
-  $scope.changeSwitch = function(){
-  	$scope.yearSwitch = !$scope.yearSwitch;
-  }
+	$scope.changeSwitch = function(){
+		$scope.yearSwitch = !$scope.yearSwitch;
+	}
 
-  $scope.selectIndex = function(n) {
-  	$scope.index = n;
-  }
-  $scope.callSelect = function(num){
-    $scope.selectedItem = num;
-  }
+	$scope.selectIndex = function(n) {
+		$scope.index = n;
+	}
+	$scope.callSelect = function(num){
+		$scope.selectedItem = num;
+	}
 }
 
 app.controller('TestController', ['$scope', 'dateFilter', TestController]);

@@ -4,7 +4,6 @@
 <head>
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="style.css">
-  <!-- <script type="text/javascript" src="demo.js"></script> -->
 </head>
 
 <body  class="bd" ng-controller="TestController" align="center">
@@ -12,7 +11,7 @@
   <div class="main">
     <div class="fre">
       <label for="freq">Frequency : </label>
-      <select class="form-control" ng-model="freq" id="freq">
+      <select class="form-control" ng-change="optionsChange()" ng-model="freq" id="freq">
        <option value="Daily">Daily</option>
        <option value="Weekly">Weekly</option>
        <option value="Monthly">Monthly</option>
@@ -21,14 +20,14 @@
    </div>
    
    <div class="form-group" ng-if="freq=='Daily'">
-     Every <input min="1" class = "day" type="number" ng-change="dayChange()" ng-model="input.day" ng-init="input.day=''"> day(s) <br>
+     Every <input min="1" class = "day" type="number" ng-change="optionsChange()" ng-model="input.day" ng-init="input.day=''"> day(s) <br>
    </div>
 
    <div class="form-group" ng-if="freq=='Weekly'">
-     Every <input min="1" class = "week" type="number"  ng-model="input.week" ng-init="input.week=''"> week(s) on: <br>
+     Every <input min="1" class = "week" type="number"  ng-change="optionsChange()" ng-model="input.week" ng-init="input.week=''"> week(s) on: <br>
      <table class="centeredItem dayTable">
       <tr>
-        <td ng-repeat="week in ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" ng-class="{ active : selectedWeeks.indexOf(week) != -1 }" ng-click="selectWeek(week)">
+        <td ng-repeat="week in ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" ng-class="{ active : selectedWeeks.indexOf(week) != -1 }" ng-click="selectWeek(week);">
           {{week}}
         </td>
       </tr>
@@ -37,7 +36,7 @@
 </div>
 
 <div class="form-group" ng-if="freq=='Monthly'">
- Every <input  min="1" class = "month" type="number" ng-model="input.month" ng-init="input.month=''"> month(s)<br>
+ Every <input ng-change="optionsChange()" min="1" class = "month" type="number" ng-model="input.month" ng-init="input.month=''"> month(s)<br>
  <div>
    <label for="monthchoice"><input ng-click ="setFlag(1)" type="radio" name="monthchoice" value="Each" ng-model="mySwitch"> Each</label> <br>
    <div>
@@ -64,7 +63,7 @@
      </table>
    </div>
  </div>
- <input  ng-click ="setFlag(2)" type="radio" name="monthchoice" value="Onthe" ng-model="mySwitch"> On the <br>
+ <label for="monthchoice"><input  ng-click ="setFlag(2)" type="radio" name="monthchoice" value="Onthe" ng-model="mySwitch"> On the </label><br>
  <div >
   <div class="btn-group" uib-dropdown dp-a > 
     <button id="button1" type="button" ng-disabled="mySwitch == 'Each'" class="btn btn-default" uib-dropdown-toggle >
@@ -96,7 +95,7 @@
 </div>
 </div>
 <div class="form-group" ng-if="freq=='Yearly'">
- Every <input min="1" class = "year" type="number" ng-model="input.year" ng-init="input.year=''"> year(s) in: <br>
+ Every <input ng-change="optionsChange()" min="1" class = "year" type="number" ng-model="input.year" ng-init="input.year=''"> year(s) in: <br>
  <table class="centeredItem dayTable">
   <tr>
     <td ng-repeat ="year in ['Jan','Feb','Mar','Apr']" ng-click="selectYear(year)" ng-class="{ active : selectedYears.indexOf(year) != -1 }">
@@ -151,15 +150,14 @@
 </div>
 
 <div >
-  <button class="btn btn-default" type="button"> Cancel </button>
-  <button class="btn btn-default" type="button"> OK </button>
-  <div>
-    <p>{{repeatText}}</p>
+  <button class="btn btn-default" type="button" ng-click="isCollapsed=false"> Cancel </button>
+  <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Ok</button>
+  <br><br><br><br>
+  <div uib-collapse="!isCollapsed">
+    <div class="msg">{{text}}</div>
   </div>
   
- 
   
- 
   <!--<button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Ok</button> 
   <div  uib-collapse="!isCollapsed">
     <div class="msg"> 
@@ -194,8 +192,8 @@
       </span>
     </div>
   </div> -->
-</div>
 
+</div>
 </div>
 </div>
 </div>
