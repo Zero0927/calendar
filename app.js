@@ -6,7 +6,7 @@ function TestController($scope, dateFilter) {
 	$scope.freq="Daily";
 	$scope.mySwitch = "Each";
 	$scope.input = {};
-	$scope.selectedDays = [];
+	$scope.selectedDays =[];
 	$scope.selectedWeeks=[];
 	$scope.selectedYears=[];
 	$scope.leftIndex = 0;
@@ -30,10 +30,24 @@ function TestController($scope, dateFilter) {
 			});
 			break;
 			case 'Monthly':
-			var rR =  new RRule({
-				freq: RRule.MONTHLY,
-				interval : $scope.input.month
-			});
+			if($scope.monthFlag){
+				if($scope.selectedDays.length > 0) {
+					var rR =  new RRule({
+						freq: RRule.MONTHLY,
+						interval : $scope.input.month,
+						bymonthday: $scope.selectedDays
+					});
+				} else {
+					var rR =  new RRule({
+						freq: RRule.MONTHLY,
+						interval : $scope.input.month,
+					});
+				}	
+			} else {
+				var rR =  new RRule({
+					freq: RRule.MONTHLY,
+				});
+			}
 			break;
 			case 'Yearly':
 			var rR =  new RRule({
@@ -74,8 +88,6 @@ function TestController($scope, dateFilter) {
 		}
 	}
 
-	
-
 	$scope.setLeft = function(n) {
 		$scope.leftIndex = n;
 	}
@@ -90,6 +102,7 @@ function TestController($scope, dateFilter) {
 		} else {
 			$scope.monthFlag = false;
 		}
+		$scope.optionsChange();
 	};
 
 	$scope.range = function(min, max, step) {
@@ -113,9 +126,10 @@ function TestController($scope, dateFilter) {
 			}
 		}else{
 			$scope.selectedDays.push(val);
-			$scope.selectedDays.sort();
 		}
+		$scope.optionsChange();
 	};
+
 
 	$scope.selectWeek = function(val){
 		var itemIndex = $scope.selectedWeeks.indexOf(val);
