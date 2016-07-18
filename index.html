@@ -154,47 +154,19 @@
   <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Ok</button>
   <br><br><br><br>
   <div uib-collapse="!isCollapsed">
-    <div class="msg">{{text}}<span ng-show="monthFlag == false || yearSwitch == true">
-     on the {{choices[leftIndex]}} {{week[rightIndex]}}
-   </span>
- </div>
-</div>
-
-
-  <!--<button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Ok</button> 
-  <div  uib-collapse="!isCollapsed">
-    <div class="msg"> 
-      <div ng-if="freq=='Daily'">
-        Every {{input.day}} day(s)
-      </div>
-      <div ng-if="freq=='Weekly'">
-        Every {{input.week}} weeks on
-        <span ng-repeat="n in selectedWeeks">
-          {{n}}
-        </span> 
-      </div>
-      <div ng-if="freq=='Monthly'">
-        Every {{input.month}} month(s) 
-        <span ng-show="monthFlag == true">
-          each
-          <span ng-repeat="n in selectedDays">
-            {{n}}
-          </span>
-        </span>
-        <span ng-hide="monthFlag == true">
+    <div class="msg">{{text}}
+      <span ng-show="monthFlag == false">
+      <span ng-show="freq=='Monthly'">
          on the {{choices[leftIndex]}} {{week[rightIndex]}}
        </span>
-     </div>
-     <div ng-if="freq=='Yearly'">
-      Every {{input.year}} year(s)
-      <span ng-repeat="n in selectedYears">
-        {{n}}
-      </span>
+     </span>
+     <span ng-show="freq=='Yearly'">
       <span ng-show="yearSwitch == true">
         on the {{choices[leftIndex]}} {{week[rightIndex]}}
       </span>
-    </div>
-  </div> -->
+    </span>
+  </div>
+</div>
 
 </div>
 </div>
