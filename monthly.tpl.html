@@ -1,0 +1,60 @@
+ <div>
+   Every <input ng-change="optionsChange()" min="1" class = "month" type="number" ng-model="input.month" ng-init="input.month=''"> month(s)<br>
+ <div>
+   <label for="monthchoice"><input ng-click ="setFlag(1)" type="radio" name="monthchoice" value="Each" ng-model="mySwitch"> Each</label> <br>
+   <div>
+     <table class="centeredItem dayTable" ng-class="{disabled : mySwitch!='Each'}">
+       <tr>
+         <td ng-class="{ active : selectedDays.indexOf(n) != -1 }" ng-click="selectDay(n,mySwitch)" ng-repeat="n in range(1,7)">{{n}}</td>
+       </tr>
+       <tr>
+         <td ng-class="{ active : selectedDays.indexOf(n) != -1 }" 
+         ng-repeat="n in range(8,14)" ng-click="selectDay(n,mySwitch)">{{n}}</td>
+       </tr>
+       <tr>
+         <td ng-class="{ active : selectedDays.indexOf(n) != -1 }" ng-repeat="n in range(15,21)" 
+         ng-click="selectDay(n,mySwitch)">{{n}}</td>
+       </tr>
+       <tr>
+         <td ng-class="{ active : selectedDays.indexOf(n) != -1 }" ng-repeat="n in range(22,28)" 
+         ng-click="selectDay(n,mySwitch)">{{n}}</td>
+       </tr>
+       <tr>
+         <td ng-class="{ active : selectedDays.indexOf(n) != -1 }" 
+         ng-repeat="n in range(29,31)" ng-click="selectDay(n,mySwitch)">{{n}}</td>
+       </tr>
+     </table>
+   </div>
+ </div>
+ <label for="monthchoice"><input  ng-click ="setFlag(2)" type="radio" name="monthchoice" value="Onthe" ng-model="mySwitch"> On the </label><br>
+ <div >
+  <div class="btn-group" uib-dropdown dp-a > 
+    <button id="button1" type="button" ng-disabled="mySwitch == 'Each'" class="btn btn-default" uib-dropdown-toggle >
+      {{choices[selectedItem]}} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="button1">
+      <li role="menuitem" ng-repeat="i in ['first','second','third','fourth','fifth']">
+        <a href ng-click="callSelect($index);setLeft($index)" >{{i}}</a>
+      </li>
+      <li class="divider"></li>
+      <li role="menuitem"><a href="#" ng-click=callSelect(5);setLeft(5)>last</a></li>
+    </ul>
+  </div>
+  <div class="btn-group" uib-dropdown dp-b > 
+    <button id="button2" type="button" ng-disabled="mySwitch == 'Each'" class="btn btn-default" uib-dropdown-toggle >
+      {{week[index]}} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="button2">
+      <li role="menuitem" ng-repeat="i in ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']">
+        <a href ng-click="selectIndex($index);setRight($index)">{{i}}</a>
+      </li>
+      <li class="divider"></li>
+      <li role="menuitem"><a href="#" ng-click=selectIndex(7);setRight(7)>day</a></li>
+      <li role="menuitem"><a href="#" ng-click=selectIndex(8);setRight(8)>weekday</a></li>
+      <li role="menuitem"><a href="#" ng-click=selectIndex(9);setRight(9)>weekend day</a></li>
+    </ul>
+  </div>
+</div>      
+</div>
+ </div>
+ 

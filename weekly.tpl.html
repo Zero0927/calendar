@@ -1,0 +1,11 @@
+ <div>
+ Every <input min="1" class = "week" type="number"  ng-change="optionsChange()" ng-model="input.week" ng-init="input.week=''"> week(s) on: <br>
+     <table class="centeredItem dayTable">
+      <tr>
+        <td ng-repeat="week in ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" ng-class="{ active : selectedWeeks.indexOf(week) != -1 }" ng-click="selectWeek(week);">
+          {{week}}
+        </td>
+      </tr>
+    </table>	
+ </div>
+ 

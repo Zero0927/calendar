@@ -6,10 +6,10 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
-<body  class="bd" ng-controller="TestController" align="center">
+<body  class="bd" ng-controller="TestController" align="center" ng-cloak>
 
-  <div class="main">
-    <div class="fre">
+  <div class="main container" ng-cloak>
+    <div class="fre row">
       <label for="freq">Frequency : </label>
       <select class="form-control" ng-change="optionsChange()" ng-model="freq" id="freq">
        <option value="Daily">Daily</option>
@@ -19,141 +19,18 @@
      </select>
    </div>
    
-   <div class="form-group" ng-if="freq=='Daily'">
-     Every <input min="1" class = "day" type="number" ng-change="optionsChange()" ng-model="input.day" ng-init="input.day=''"> day(s) <br>
+   <div class="row form-group" ng-if="freq=='Daily'" ng-include="'./daily.tpl.html'"></div>
+   <div class="row form-group" ng-if="freq=='Weekly'" ng-include="'./weekly.tpl.html'" ng-cloak></div>
+   <div class="row form-group" ng-if="freq=='Monthly'" ng-include="'./monthly.tpl.html'" ng-cloak></div>
+   <div class="row form-group" ng-if="freq=='Yearly'" ng-include="'./yearly.tpl.html'" ng-cloak></div>
+
+   <div class="row">
+     <button class="btn btn-default" type="button" ng-click="isCollapsed=false"> Cancel </button>
+     <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Ok</button>
    </div>
 
-   <div class="form-group" ng-if="freq=='Weekly'">
-     Every <input min="1" class = "week" type="number"  ng-change="optionsChange()" ng-model="input.week" ng-init="input.week=''"> week(s) on: <br>
-     <table class="centeredItem dayTable">
-      <tr>
-        <td ng-repeat="week in ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']" ng-class="{ active : selectedWeeks.indexOf(week) != -1 }" ng-click="selectWeek(week);">
-          {{week}}
-        </td>
-      </tr>
-    </table>
-  </div>
-</div>
-
-<div class="form-group" ng-if="freq=='Monthly'">
- Every <input ng-change="optionsChange()" min="1" class = "month" type="number" ng-model="input.month" ng-init="input.month=''"> month(s)<br>
- <div>
-   <label for="monthchoice"><input ng-click ="setFlag(1)" type="radio" name="monthchoice" value="Each" ng-model="mySwitch"> Each</label> <br>
-   <div>
-     <table class="centeredItem dayTable" ng-class="{disabled : mySwitch!='Each'}">
-       <tr>
-         <td ng-class="{ active : selectedDays.indexOf(n) != -1 }" ng-click="selectDay(n,mySwitch)" ng-repeat="n in range(1,7)">{{n}}</td>
-       </tr>
-       <tr>
-         <td ng-class="{ active : selectedDays.indexOf(n) != -1 }" 
-         ng-repeat="n in range(8,14)" ng-click="selectDay(n,mySwitch)">{{n}}</td>
-       </tr>
-       <tr>
-         <td ng-class="{ active : selectedDays.indexOf(n) != -1 }" ng-repeat="n in range(15,21)" 
-         ng-click="selectDay(n,mySwitch)">{{n}}</td>
-       </tr>
-       <tr>
-         <td ng-class="{ active : selectedDays.indexOf(n) != -1 }" ng-repeat="n in range(22,28)" 
-         ng-click="selectDay(n,mySwitch)">{{n}}</td>
-       </tr>
-       <tr>
-         <td ng-class="{ active : selectedDays.indexOf(n) != -1 }" 
-         ng-repeat="n in range(29,31)" ng-click="selectDay(n,mySwitch)">{{n}}</td>
-       </tr>
-     </table>
-   </div>
- </div>
- <label for="monthchoice"><input  ng-click ="setFlag(2)" type="radio" name="monthchoice" value="Onthe" ng-model="mySwitch"> On the </label><br>
- <div >
-  <div class="btn-group" uib-dropdown dp-a > 
-    <button id="button1" type="button" ng-disabled="mySwitch == 'Each'" class="btn btn-default" uib-dropdown-toggle >
-      {{choices[selectedItem]}} <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="button1">
-      <li role="menuitem" ng-repeat="i in ['first','second','third','fourth','fifth']">
-        <a href ng-click="callSelect($index);setLeft($index)" >{{i}}</a>
-      </li>
-      <li class="divider"></li>
-      <li role="menuitem"><a href="#" ng-click=callSelect(5);setLeft(5)>last</a></li>
-    </ul>
-  </div>
-  <div class="btn-group" uib-dropdown dp-b > 
-    <button id="button2" type="button" ng-disabled="mySwitch == 'Each'" class="btn btn-default" uib-dropdown-toggle >
-      {{week[index]}} <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="button2">
-      <li role="menuitem" ng-repeat="i in ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']">
-        <a href ng-click="selectIndex($index);setRight($index)">{{i}}</a>
-      </li>
-      <li class="divider"></li>
-      <li role="menuitem"><a href="#" ng-click=selectIndex(7);setRight(7)>day</a></li>
-      <li role="menuitem"><a href="#" ng-click=selectIndex(8);setRight(8)>weekday</a></li>
-      <li role="menuitem"><a href="#" ng-click=selectIndex(9);setRight(9)>weekend day</a></li>
-    </ul>
-  </div>
-</div>      
-</div>
-</div>
-<div class="form-group" ng-if="freq=='Yearly'">
- Every <input ng-change="optionsChange()" min="1" class = "year" type="number" ng-model="input.year" ng-init="input.year=''"> year(s) in: <br>
- <table class="centeredItem dayTable">
-  <tr>
-    <td ng-repeat ="year in ['Jan','Feb','Mar','Apr']" ng-click="selectYear(year)" ng-class="{ active : selectedYears.indexOf(year) != -1 }">
-      {{year}}
-    </td>
-  </tr>
-  <tr>
-    <td ng-repeat ="year in ['May','Jun','Jul','Aug']" ng-click="selectYear(year)" ng-class="{ active : selectedYears.indexOf(year) != -1 }">
-      {{year}}
-    </td>
-  </tr>
-  <tr>
-    <td ng-repeat ="year in ['Sept', 'Oct', 'Nov', 'Dec']" ng-click="selectYear(year)" ng-class="{ active : selectedYears.indexOf(year) != -1 }">
-      {{year}}
-    </td>
-  </tr>
-</table>
-<div ng-init="switch=false">
-  <div >
-    <input type="checkbox" ng-model="switch" value="On" ng-click="changeSwitch()"> On the: <br>
-
-    <div class="btn-group" uib-dropdown dp-a > 
-      <button id="button1" type="button"  ng-disabled="switch !=true" class="btn btn-default" uib-dropdown-toggle >
-        {{choices[selectedItem]}} <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="button1">
-        <li role="menuitem" ng-repeat="i in ['first','second','third','fourth','fifth']">
-          <a href ng-click=callSelect($index);setLeft($index)>{{i}}</a>
-        </li>
-        <li class="divider"></li>
-        <li role="menuitem"><a href="#" ng-click=callSelect(5);setLeft(5)>last</a></li>
-      </ul>
-    </div>
-    <div class="btn-group" uib-dropdown dp-b > 
-      <button id="button2" type="button"  ng-disabled="switch !=true" class="btn btn-default" uib-dropdown-toggle >
-        {{week[index]}} <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="button2">
-        <li role="menuitem" ng-repeat="i in ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']">
-          <a href ng-click=selectIndex($index);setRight($index)>{{i}}</a>
-        </li>
-        <li class="divider"></li>
-        <li role="menuitem"><a href="#" ng-click=selectIndex(7);setRight(7)>day</a></li>
-        <li role="menuitem"><a href="#" ng-click=selectIndex(8);setRight(8)>weekday</a></li>
-        <li role="menuitem"><a href="#" ng-click=selectIndex(9);setRight(9)>weekend day</a></li>
-      </ul>
-    </div>
-  </div>   
-</div>
-</div>
-</form>
-</div>
-
-<div >
-  <button class="btn btn-default" type="button" ng-click="isCollapsed=false"> Cancel </button>
-  <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Ok</button>
-  <br><br><br><br>
-  <div uib-collapse="!isCollapsed">
+  
+  <div class="row" uib-collapse="!isCollapsed">
     <div class="msg">{{text}}
       <span ng-show="monthFlag == false">
       <span ng-show="freq=='Monthly'">
@@ -169,9 +46,7 @@
 </div>
 
 </div>
-</div>
-</div>
-</div>
+
 <script type="text/javascript" src="./bower_components/angular/angular.js"></script>
 <script type="text/javascript" src="./bower_components/angular-pickadate/dist/angular-pickadate.js"></script>
 <script type="text/javascript" src="./bower_components/angular-animate/angular-animate.js"></script>
