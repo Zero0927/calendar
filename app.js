@@ -2,6 +2,12 @@ var app = angular.module('testApp', ['pickadate','ngAnimate', 'ui.bootstrap']);
 
 
 function TestController($scope, dateFilter) {
+	$scope.selectedItem = 0;
+	$scope.choices = ["first","second","third","fourth","fifth","last"];
+	$scope.week =["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","day","weekday","weekend day"];
+	$scope.index = 0;
+	$scope.isCollapsed = false;
+	$scope.yearSwitch = false;
 	$scope.monthFlag = true;
 	$scope.freq="Daily";
 	$scope.mySwitch = "Each";
@@ -13,7 +19,8 @@ function TestController($scope, dateFilter) {
 	$scope.rightIndex = 0;
 	$scope.text = "";
 	$scope.weeks =[];
-	
+	$scope.years =[];
+
 	$scope.optionsChange = function(){
 		switch($scope.freq){
 			case 'Daily':
@@ -30,29 +37,24 @@ function TestController($scope, dateFilter) {
 			});
 			break;
 			case 'Monthly':
-			if($scope.monthFlag){
-				if($scope.selectedDays.length > 0) {
-					var rR =  new RRule({
-						freq: RRule.MONTHLY,
-						interval : $scope.input.month,
-						bymonthday: $scope.selectedDays
-					});
-				} else {
-					var rR =  new RRule({
-						freq: RRule.MONTHLY,
-						interval : $scope.input.month,
-					});
-				}	
+			if($scope.selectedDays.length > 0 && $scope.monthFlag) {
+				var rR =  new RRule({
+					freq: RRule.MONTHLY,
+					interval : $scope.input.month,
+					bymonthday: $scope.selectedDays
+				});
 			} else {
 				var rR =  new RRule({
 					freq: RRule.MONTHLY,
+					interval : $scope.input.month,
 				});
-			}
+			}	
 			break;
 			case 'Yearly':
 			var rR =  new RRule({
 				freq: RRule.YEARLY,
-				interval : $scope.input.year
+				interval : $scope.input.year,
+				bymonth: $scope.years
 			});
 			break; 
 		} 
@@ -83,6 +85,50 @@ function TestController($scope, dateFilter) {
 				break;
 				case 'Sun':
 				$scope.weeks.push(RRule.SU);
+				break;
+			}
+		}
+	}
+
+	$scope.yearTransfer = function(){
+		$scope.years = [];
+		for(i = 0; i < $scope.selectedYears.length; i++) {
+			switch($scope.selectedYears[i]){
+				case 'Jan':
+				$scope.years.push(1);
+				break;
+				case 'Feb':
+				$scope.years.push(2);
+				break;
+				case 'Mar':
+				$scope.years.push(3);
+				break;
+				case 'Apr':
+				$scope.years.push(4);
+				break;
+				case 'May':
+				$scope.years.push(5);
+				break;
+				case 'Jun':
+				$scope.years.push(6);
+				break;
+				case 'Jul':
+				$scope.years.push(7);
+				break;
+				case 'Aug':
+				$scope.years.push(8);
+				break;
+				case 'Sept':
+				$scope.years.push(9);
+				break;
+				case 'Oct':
+				$scope.years.push(10);
+				break;
+				case 'Nov':
+				$scope.years.push(11);
+				break;
+				case 'Dec':
+				$scope.years.push(12);
 				break;
 			}
 		}
@@ -154,17 +200,10 @@ function TestController($scope, dateFilter) {
 			}
 		}else{
 			$scope.selectedYears.push(val);
-			$scope.selectedYears.sort();
 		}
+		$scope.yearTransfer();
+		$scope.optionsChange();
 	};
-
-
-	$scope.selectedItem = 0;
-	$scope.choices = ["first","second","third","fourth","fifth","last"];
-	$scope.week =["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","day","weekday","weekend day"];
-	$scope.index = 0;
-	$scope.isCollapsed = false;
-	$scope.yearSwitch = false;
 
 	$scope.changeSwitch = function(){
 		$scope.yearSwitch = !$scope.yearSwitch;

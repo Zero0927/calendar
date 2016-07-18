@@ -154,7 +154,7 @@
   <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Ok</button>
   <br><br><br><br>
   <div uib-collapse="!isCollapsed">
-    <div class="msg">{{text}}<span ng-hide="monthFlag == true">
+    <div class="msg">{{text}}<span ng-show="monthFlag == false || yearSwitch == true">
      on the {{choices[leftIndex]}} {{week[rightIndex]}}
    </span>
  </div>
